@@ -1,0 +1,16 @@
+PODS:
+  - HorizonFintexSDK (1.0.0)
+
+DEPENDENCIES:
+  - HorizonFintexSDK
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - HorizonFintexSDK
+
+SPEC CHECKSUMS:
+  HorizonFintexSDK: e46518958c83fb286882f2e258845faf3cb0f258
+
+PODFILE CHECKSUM: 275496d329cd6e3b3a90c369940e73e0d478c0e8
+
+COCOAPODS: 1.10.1
