@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField * tfMessage;
 @property (weak, nonatomic) IBOutlet UITextField * tfContractAddr;
 @property (weak, nonatomic) IBOutlet UIButton * signMessage;
-@property (weak, nonatomic) IBOutlet UILabel * lbSignedMessage;
 @end
 
 NS_ASSUME_NONNULL_END

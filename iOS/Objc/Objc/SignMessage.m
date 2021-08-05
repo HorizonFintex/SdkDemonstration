@@ -33,33 +33,34 @@
 */
 
 - (IBAction)btSignMessageTapped:(id)sender {
-    NSString *keystoreStr = [self.tfKeystore text];
+    NSString *keystoreStr = [[self.tfKeystore text] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([self isEmptyStr:keystoreStr]) {
-        [self showErrorWithMessage:@"Please enter keystore"];
+        [self showMessageWithTitle:@"Error" message:@"Please enter keystore"];
         return;
     }
     
     NSString *pwdStr = [self.tfPwd text];
     if ([self isEmptyStr:pwdStr]) {
-        [self showErrorWithMessage:@"Please enter password"];
+        
+        [self showMessageWithTitle:@"Error" message:@"Please enter password"];
         return;
     }
     
     NSString *messageToSign = [self.tfMessage text];
     if ([self isEmptyStr:messageToSign]) {
-        [self showErrorWithMessage:@"Please enter message"];
+        [self showMessageWithTitle:@"Error" message:@"Please enter message"];
         return;
     }
     
-    NSString *contractAddress = [self.tfContractAddr text];
+    NSString *contractAddress = [[self.tfContractAddr text] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([self isEmptyStr:contractAddress]) {
-        [self showErrorWithMessage:@"Please enter contract addr"];
+        [self showMessageWithTitle:@"Error" message:@"Please enter contract addr"];
         return;
     }
     
     NSString  * _Nullable keystore = [[EthereumKeystore alloc] initWithJsonStr:keystoreStr];
     if (keystore == nil) {
-        [self showErrorWithMessage:@"You've entered invalid keystore, please try again"];
+        [self showMessageWithTitle:@"Error" message:@"You've entered invalid keystore, please try again"];
         return;
     }
     
@@ -68,18 +69,18 @@
         [self dismissProgress];
         
         if (error != nil) {
-            [self showErrorWithMessage:[error description]];
+            [self showMessageWithTitle:@"Error" message:[error description]];
             return;
         }
         
-        [self.lbSignedMessage setText:result];
+        [self showMessageWithTitle:@"Signed message" message:result];
     }];
     
 }
 
-- (void)showErrorWithMessage:(NSString *)message {
+- (void)showMessageWithTitle:(NSString *)title message:(NSString *)message {
     UIAlertController *alertView = [UIAlertController
-                                    alertControllerWithTitle:@"Error" message:message preferredStyle:UIAlertControllerStyleAlert];
+                                    alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil];
     
     [alertView addAction:cancelAction];

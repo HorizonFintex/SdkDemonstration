@@ -16,7 +16,6 @@ class SignMessage: UIViewController {
     @IBOutlet weak var tfPwd: UITextField!
     
     @IBOutlet weak var tfContractAddr: UITextField!
-    @IBOutlet weak var lbSignedMessage: UILabel!
     @IBOutlet weak var tfMessage: UITextField!
     
     
@@ -31,28 +30,28 @@ class SignMessage: UIViewController {
     }
     
     @IBAction func btSignMessageTapped(_ sender: Any) {
-        guard let keystoreStr = self.tfKeystore.text, !keystoreStr.isEmpty else {
-            showError(message: "Please enter keystore")
+        guard let keystoreStr = self.tfKeystore.text?.trimmingCharacters(in: .whitespacesAndNewlines), !keystoreStr.isEmpty else {
+            self.showMessage(title: "Error", message: "Please enter keystore")
             return
         }
         
         guard let pwdStr = self.tfPwd.text, !pwdStr.isEmpty else {
-            showError(message: "Please enter password")
+            self.showMessage(title: "Error", message: "Please enter password")
             return
         }
         
         guard let messageToSign = self.tfMessage.text, !messageToSign.isEmpty else {
-            showError(message: "Please enter message")
+            self.showMessage(title: "Error", message: "Please enter message")
             return
         }
         
-        guard let contractAddress = self.tfContractAddr.text, !contractAddress.isEmpty else {
-            showError(message: "Please enter contract addr")
+        guard let contractAddress = self.tfContractAddr.text?.trimmingCharacters(in: .whitespacesAndNewlines), !contractAddress.isEmpty else {
+            self.showMessage(title: "Error", message: "Please enter contract addr")
             return
         }
         
         guard let keystore = EthereumKeystore(jsonStr: keystoreStr) else {
-            showError(message: "You've entered invalid keystore, please try again")
+            self.showMessage(title: "Error", message: "You've entered invalid keystore, please try again")
             return
         }
         
@@ -62,22 +61,22 @@ class SignMessage: UIViewController {
             self.dismissProgress()
             
             if let error = error {
-                self.showError(message: error.localizedDescription)
+                self.showMessage(title: "Error", message: error.localizedDescription)
                 return
             }
             
             guard let result = result else {
-                self.showError(message: "failed to sign message, reason unknown")
+                self.showMessage(title: "Error", message: "failed to sign message, reason unknown")
                 return
             }
             
-            self.lbSignedMessage.text = result
+            self.showMessage(title: "Signed message", message: result)
         }
         
     }
     
-    func showError(message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+    func showMessage(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         
         alert.addAction(cancelAction)
