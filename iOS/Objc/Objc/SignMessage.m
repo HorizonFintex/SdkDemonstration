@@ -9,7 +9,7 @@
 #import <HorizonFintexSDK/HorizonFintexSDK.h>
 
 @interface SignMessage ()
-@property (strong, nonatomic) HGEthereumOperator *ethOperator;
+@property (strong, nonatomic) id<EthereumOperator> ethOperator;
 @end
 
 @implementation SignMessage
@@ -17,9 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    JSWebview *webview = [[JSWebview alloc] initWithHandlers: nil];
     
-    self.ethOperator = [[HGEthereumOperator alloc] initWithJsEvaluator:webview attachedView:self.view];
+    self.ethOperator = [EthereumCreator createOperatorWithAttachedView:self.view];
 }
 
 /*
@@ -58,7 +57,7 @@
         return;
     }
     
-    NSString  * _Nullable keystore = [[EthereumKeystore alloc] initWithJsonStr:keystoreStr];
+    NSString  * _Nullable keystore = [[EthereumKeystore alloc] initWithKeystoreJSON:keystoreStr];
     if (keystore == nil) {
         [self showMessageWithTitle:@"Error" message:@"You've entered invalid keystore, please try again"];
         return;

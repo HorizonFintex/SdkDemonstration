@@ -7,8 +7,6 @@ import android.util.Log
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.LinearLayout
-import com.horizonfintex.sdk.EtherumKit.HGEthereumOperator
-import com.horizonfintex.sdk.WebView.JSWebView
 
 class MainActivity : AppCompatActivity() {
 

@@ -17,12 +17,12 @@ class GenerateKeystore: UIViewController {
     @IBOutlet weak var tvKeystore: UITextView!
     
     
-    var ethOperator: HGEthereumOperator!
+    var ethOperator: EthereumOperator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let jsEvaluator = JSWebview(handlers: nil)
-        self.ethOperator = HGEthereumOperator(jsEvaluator: jsEvaluator, attachedView: self.view)
+        
+        self.ethOperator = EthereumCreator.createOperator(attachedView: self.view)
     }
     
     @IBAction func btGeneratedKeystoreTapped(_ sender: Any) {

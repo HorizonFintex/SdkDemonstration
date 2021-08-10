@@ -9,7 +9,7 @@
 #import <HorizonFintexSDK/HorizonFintexSDK.h>
 
 @interface GenerateKeystore ()
-@property(strong, nonatomic) HGEthereumOperator *ethOperator;
+@property(strong, nonatomic) id<EthereumOperator> ethOperator;
 @end
 
 @implementation GenerateKeystore
@@ -17,9 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    JSWebview *webview = [[JSWebview alloc] initWithHandlers: nil];
     
-    self.ethOperator = [[HGEthereumOperator alloc] initWithJsEvaluator:webview attachedView:self.view];
+    self.ethOperator = [EthereumCreator createOperatorWithAttachedView:self.view];
     
 }
 

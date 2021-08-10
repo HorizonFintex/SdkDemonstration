@@ -11,12 +11,12 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
-import com.horizonfintex.sdk.EtherumKit.HGEthereumOperator
-import com.horizonfintex.sdk.WebView.JSWebView
+import com.horizonfintex.sdk.EtherumKit.EthereumCreator
+import com.horizonfintex.sdk.EtherumKit.EthereumOperator
 import kotlin.jvm.internal.Intrinsics
 
 class CreateKeyStore : AppCompatActivity() {
-    var ethOperator: HGEthereumOperator? = null
+    var ethOperator: EthereumOperator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +28,7 @@ class CreateKeyStore : AppCompatActivity() {
         val tvPwd = findViewById<TextInputEditText>(R.id.edtKeyPwd)
         val tvKeystoreContent = findViewById<TextView>(R.id.tvKeystoreContent)
 
-        val jsEvaluator = JSWebView(this)
-        this.ethOperator = HGEthereumOperator(jsEvaluator, rootContainer)
+        this.ethOperator = EthereumCreator.createOperator(this, rootContainer)
 
         btnCreateKey.setOnClickListener {
             val pwdStr = tvPwd.text.toString()

@@ -19,14 +19,13 @@ class SignMessage: UIViewController {
     @IBOutlet weak var tfMessage: UITextField!
     
     
-    var ethOperator: HGEthereumOperator!
+    var ethOperator: EthereumOperator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let jsEvaluator = JSWebview(handlers: nil)
-        self.ethOperator = HGEthereumOperator(jsEvaluator: jsEvaluator, attachedView: self.view)
         
+        self.ethOperator = EthereumCreator.createOperator(attachedView: self.view)
     }
     
     @IBAction func btSignMessageTapped(_ sender: Any) {
@@ -50,7 +49,7 @@ class SignMessage: UIViewController {
             return
         }
         
-        guard let keystore = EthereumKeystore(jsonStr: keystoreStr) else {
+        guard let keystore = EthereumKeystore(keystoreJSON: keystoreStr) else {
             self.showMessage(title: "Error", message: "You've entered invalid keystore, please try again")
             return
         }

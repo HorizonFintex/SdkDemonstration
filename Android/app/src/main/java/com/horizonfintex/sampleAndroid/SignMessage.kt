@@ -9,12 +9,12 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
+import com.horizonfintex.sdk.EtherumKit.EthereumCreator
 import com.horizonfintex.sdk.EtherumKit.EthereumKeystore
-import com.horizonfintex.sdk.EtherumKit.HGEthereumOperator
-import com.horizonfintex.sdk.WebView.JSWebView
+import com.horizonfintex.sdk.EtherumKit.EthereumOperator
 
 class SignMessage : AppCompatActivity() {
-    var ethOperator: HGEthereumOperator? = null
+    var ethOperator: EthereumOperator? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_message)
@@ -26,8 +26,8 @@ class SignMessage : AppCompatActivity() {
         val tvContractAddr = findViewById<TextInputEditText>(R.id.edtContractAddr)
         val btnSign = findViewById<Button>(R.id.btnSignMsg)
 
-        val jsEvaluator = JSWebView(this)
-        this.ethOperator = HGEthereumOperator(jsEvaluator, rootContainer)
+
+        this.ethOperator = EthereumCreator.createOperator(this, rootContainer)
 
 
         btnSign.setOnClickListener {
