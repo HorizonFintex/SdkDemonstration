@@ -45,7 +45,7 @@ artifactory {
     }
     resolve {
         repository {
-            repoKey = 'horizonsdk-gradle-dev'
+            repoKey = 'horizonsdk-gradle-dev-local'
             username = "${artifactory_user}"
             password = "${artifactory_password}"
             maven = true
